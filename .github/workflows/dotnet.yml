@@ -11,5 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      run: docker build -t everything-api -f ./EverythingAsCode.Api/Dockerfile .
+    - name: Docker login
+      uses: docker/login-action@v1
+      with:
+        registry: andystewartregistry.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: /EverythingAsCode.Api/.
+        push: true
+        tags: andystewartregistry.azurecr.io/my-app:1.0
