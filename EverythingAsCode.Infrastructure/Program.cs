@@ -7,12 +7,12 @@ using System.Collections.Generic;
 return await Pulumi.Deployment.RunAsync(() =>
 {
     // Create an Azure Resource Group
-    var resourceGroup = new ResourceGroup("resourceGroup");
+    var resourceGroup = new Environment();
 
     // Create an Azure resource (Storage Account)
     var storageAccount = new StorageAccount("sa", new StorageAccountArgs
     {
-        ResourceGroupName = resourceGroup.Name,
+        ResourceGroupName = resourceGroup.ResourceGroup.Name,
         Sku = new SkuArgs
         {
             Name = SkuName.Standard_LRS
@@ -22,7 +22,7 @@ return await Pulumi.Deployment.RunAsync(() =>
 
     var storageAccountKeys = ListStorageAccountKeys.Invoke(new ListStorageAccountKeysInvokeArgs
     {
-        ResourceGroupName = resourceGroup.Name,
+        ResourceGroupName = resourceGroup.ResourceGroup.Name,
         AccountName = storageAccount.Name
     });
 
@@ -38,3 +38,13 @@ return await Pulumi.Deployment.RunAsync(() =>
         ["primaryStorageKey"] = primaryStorageKey
     };
 });
+
+public class Environment {
+
+    public ResourceGroup ResourceGroup { get; }
+    
+    public Environment()
+    {
+        ResourceGroup = new ResourceGroup("resourceGroup");
+    }
+}
