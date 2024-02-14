@@ -39,4 +39,5 @@ jobs:
         export AZURE_STORAGE_KEY=${{secrets.AZURE_STORAGE_KEY}}
         pulumi login azblob://pulumi
         cd ./EverythingAsCode.Infrastructure/
+        pulumi stack select dev
         pulumi preview
