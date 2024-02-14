@@ -20,22 +20,10 @@ return await Pulumi.Deployment.RunAsync(() =>
         Kind = Kind.StorageV2
     });
 
-    var storageAccountKeys = ListStorageAccountKeys.Invoke(new ListStorageAccountKeysInvokeArgs
-    {
-        ResourceGroupName = resourceGroup.ResourceGroup.Name,
-        AccountName = storageAccount.Name
-    });
-
-    var primaryStorageKey = storageAccountKeys.Apply(accountKeys =>
-    {
-        var firstKey = accountKeys.Keys[0].Value;
-        return Output.CreateSecret(firstKey);
-    });
-
     // Export the primary key of the Storage Account
     return new Dictionary<string, object?>
     {
-        ["primaryStorageKey"] = primaryStorageKey
+        ["primaryStorageKey"] = ""
     };
 });
 
