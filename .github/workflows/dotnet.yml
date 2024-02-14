@@ -33,13 +33,13 @@ jobs:
       run: |
         export AZURE_STORAGE_ACCOUNT=standypulumi
         export AZURE_STORAGE_KEY=${{secrets.AZURE_STORAGE_KEY}}
-        export ARM_CLIENT_ID=${{secrets.ARM_CLIENT_ID}}
+        export ARM_CLIENT_ID=f88384c5-dd72-44b1-a9a5-1a3acbe16f5c
         export ARM_CLIENT_SECRET=${{secrets.ARM_CLIENT_SECRET}}
-        export ARM_TENANT_ID=${{secrets.ARM_TENANT_ID}}
-        export ARM_SUBSCRIPTION_ID=${{secrets.ARM_SUBSCRIPTION_ID}}
-        export ARM_LOCATION_NAME=${{secrets.ARM_LOCATION_NAME}}
-        export PULUMI_CONFIG_PASSPHRASE=''
+        export ARM_TENANT_ID=ff80e6e5-a9fb-4db9-9b1f-55d701f83e1d
+        export ARM_SUBSCRIPTION_ID=466a09cb-2d6e-4824-9190-47a90985f8b6
         
+        export PULUMI_CONFIG_PASSPHRASE=''
+
         pulumi login azblob://pulumi
         pulumi stack select dev
         pulumi preview
