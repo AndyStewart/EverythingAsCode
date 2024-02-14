@@ -34,4 +34,5 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'      
     - name: Deploy to Production
       run: |
+        pulumi login azblob://pulumi
         pulumi preview
