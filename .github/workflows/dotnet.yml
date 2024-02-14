@@ -34,5 +34,7 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'      
     - name: Deploy to Production
       run: |
+        export AZURE_STORAGE_ACCOUNT=standypulumi
+        export AZURE_STORAGE_KEY=${{secrets.AZURE_STORAGE_KEY}}
         pulumi login azblob://pulumi
         pulumi preview
