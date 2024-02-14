@@ -12,7 +12,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     // Export the primary key of the Storage Account
     return new Dictionary<string, object?>
     {
-        ["primaryStorageKey"] = primaryStorageKey
+        ["primaryStorageKey"] = ""
     };
 });
 
