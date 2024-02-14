@@ -43,5 +43,5 @@ jobs:
         pulumi login azblob://pulumi
         pulumi stack select dev
         pulumi preview
-        pulumi update
+        pulumi update --yes
       working-directory: ./EverythingAsCode.Infrastructure/
