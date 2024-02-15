@@ -5,13 +5,12 @@ using Pulumi.AzureNative.App;
 return await Pulumi.Deployment.RunAsync(() =>
 {
     // Create an Azure Resource Group
-    var resourceGroup = new Environment();
-    var env = new ManagedEnvironment(
+    var environment = new Environment();
+    var containerEnv = new ManagedEnvironment(
         "env",
-        new ManagedEnvironmentArgs { ResourceGroupName = resourceGroup.ResourceGroup.Name }
+        new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
     // Export the primary key of the Storage Account
     return new Dictionary<string, object?> { ["primaryStorageKey"] = "" };
 });
-
