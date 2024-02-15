@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
+using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.Resources;
-using Pulumi.AzureNative.Web;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
     // Create an Azure Resource Group
     var resourceGroup = new Environment();
-    var kubeEnv = new KubeEnvironment(
+    var env = new ManagedEnvironment(
         "env",
-        new KubeEnvironmentArgs
-        {
-            ResourceGroupName = resourceGroup.ResourceGroup.Name,
-            EnvironmentType = "Managed"
-        }
+        new ManagedEnvironmentArgs { ResourceGroupName = resourceGroup.ResourceGroup.Name }
     );
 
     // Export the primary key of the Storage Account
