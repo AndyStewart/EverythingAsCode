@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Pulumi.AzureNative.Resources;
-using Pulumi.AzureNative.Web.V20230101;
+using Pulumi.AzureNative.Web;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
