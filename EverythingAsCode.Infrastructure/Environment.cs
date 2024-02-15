@@ -1,13 +1,14 @@
 using Pulumi.AzureNative.Resources;
 
-namespace EverythingAsCode.Infrastructure;
-
-public class Environment
+namespace EverythingAsCode.Infrastructure
 {
-    public ResourceGroup ResourceGroup { get; }
-
-    public Environment()
+    public class Environment
     {
-        ResourceGroup = new ResourceGroup("resourceGroup");
+        public ResourceGroup ResourceGroup { get; }
+
+        public Environment()
+        {
+            ResourceGroup = new ResourceGroup("resourceGroup");
+        }
     }
 }

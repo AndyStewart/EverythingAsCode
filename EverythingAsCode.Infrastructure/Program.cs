@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using EverythingAsCode.Infrastructure;
 using Pulumi.AzureNative.App;
-using Pulumi.AzureNative.Resources;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
@@ -14,14 +14,4 @@ return await Pulumi.Deployment.RunAsync(() =>
     // Export the primary key of the Storage Account
     return new Dictionary<string, object?> { ["primaryStorageKey"] = "" };
 });
-
-public class Environment
-{
-    public ResourceGroup ResourceGroup { get; }
-
-    public Environment()
-    {
-        ResourceGroup = new ResourceGroup("resourceGroup");
-    }
-}
 
