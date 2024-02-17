@@ -44,6 +44,17 @@ return await Pulumi.Deployment.RunAsync(async () =>
         "cap-everythingascode",
         new ContainerAppArgs
         {
+            Configuration = new ConfigurationArgs
+            {
+                Registries = new[]
+                {
+                    new RegistryCredentialsArgs
+                    {
+                        Server = containerRegistry.LoginServer,
+                        Identity = identity.PrincipalId,
+                    }
+                }
+            },
             ResourceGroupName = environment.ResourceGroup.Name,
             Location = environment.ResourceGroup.Location,
             EnvironmentId = containerEnv.Id,
