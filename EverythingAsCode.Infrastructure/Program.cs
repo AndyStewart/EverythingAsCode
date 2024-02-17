@@ -3,10 +3,9 @@ using EverythingAsCode.Infrastructure;
 using Pulumi;
 using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.App.Inputs;
-using Pulumi.AzureNative.AppPlatform;
 using Pulumi.AzureNative.Authorization;
+using Pulumi.AzureNative.ContainerRegistry;
 using Pulumi.AzureNative.ManagedIdentity;
-using Pulumi.AzureNative.Resources;
 using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
 
 return await Pulumi.Deployment.RunAsync(() =>
@@ -18,9 +17,7 @@ return await Pulumi.Deployment.RunAsync(() =>
         new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
-    var group = ResourceGroup.Get("rg-andy-infrastructure", "rg-andy-infrastructure");
-    var containerRegistry = ContainerRegistry.Get("andystewartregistry", "andystewartregistry", new CustomResourceOptions { Parent = group });
-
+    var containerRegistry = Registry.Get("andystewartregistry", "rg-andy-infrastructure");
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
