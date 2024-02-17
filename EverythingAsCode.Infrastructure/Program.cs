@@ -40,29 +40,29 @@ return await Pulumi.Deployment.RunAsync(async () =>
         new CustomResourceOptions { Parent = containerEnv }
     );
 
-    // var containerApp = new ContainerApp(
-    //     "cap-everythingascode",
-    //     new ContainerAppArgs
-    //     {
-    //         ResourceGroupName = environment.ResourceGroup.Name,
-    //         Location = environment.ResourceGroup.Location,
-    //         EnvironmentId = containerEnv.Id,
-    //         Identity = new ManagedServiceIdentityArgs
-    //         {
-    //             Type = ManagedServiceIdentityType.UserAssigned,
-    //             UserAssignedIdentities = { identity.Id },
-    //         },
-    //         Template = new TemplateArgs
-    //         {
-    //             Containers = new ContainerArgs[] {
-    //                 new ContainerArgs {
-    //                     Name = "everythingascode",
-    //                     Image = "andystewartregistry.azurecr.io/my-app:1.0",
-    //                 }
-    //             }
-    //         }
-    //     }
-    // );
+    var containerApp = new ContainerApp(
+        "cap-everythingascode",
+        new ContainerAppArgs
+        {
+            ResourceGroupName = environment.ResourceGroup.Name,
+            Location = environment.ResourceGroup.Location,
+            EnvironmentId = containerEnv.Id,
+            Identity = new ManagedServiceIdentityArgs
+            {
+                Type = ManagedServiceIdentityType.UserAssigned,
+                UserAssignedIdentities = { identity.Id },
+            },
+            Template = new TemplateArgs
+            {
+                Containers = new ContainerArgs[] {
+                    new ContainerArgs {
+                        Name = "everythingascode",
+                        Image = "andystewartregistry.azurecr.io/my-app:1.0",
+                    }
+                }
+            }
+        }
+    );
 
     // Export the primary key of the Storage Account
     return new Dictionary<string, object?> { ["primaryStorageKey"] = "" };
