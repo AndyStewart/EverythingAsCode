@@ -5,12 +5,10 @@ using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.App.Inputs;
 using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ContainerRegistry;
-using Pulumi.AzureNative.DocumentDB.V20230301Preview.Inputs;
 using Pulumi.AzureNative.ManagedIdentity;
-using Pulumi.AzureNative.Resources;
 using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
 
-return await Pulumi.Deployment.RunAsync(() =>
+return await Pulumi.Deployment.RunAsync(async () =>
 {
     // Create an Azure Resource Group
     var environment = new Environment();
@@ -19,18 +17,16 @@ return await Pulumi.Deployment.RunAsync(() =>
         new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
-
-    var container = GetRegistry.InvokeAsync(new GetRegistryArgs
+    var containerRegistry = await GetRegistry.InvokeAsync(new GetRegistryArgs
     {
         RegistryName = "andystewartregistry",
         ResourceGroupName = "rg-andy-infrastructure"
     });
-    
+
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
-
 
     var acrRole = new RoleAssignment(
         "acrRole",
@@ -38,7 +34,7 @@ return await Pulumi.Deployment.RunAsync(() =>
         {
             PrincipalId = identity.PrincipalId,
             RoleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
-            Scope = containerRegistry.Id
+            Scope = containerRegistry.
         },
         new CustomResourceOptions { Parent = containerEnv }
     );
