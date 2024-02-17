@@ -38,7 +38,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
         "ACRPullRole",
         new RoleAssignmentArgs
         {
-            PrincipalId = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/resourcegroups/rg-everyascodec187ad2d/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityc6c2f6b9",
+            PrincipalId = "47a16568-0eec-4680-9b7c-a71bc7d55704",
             RoleDefinitionId = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
             Scope = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6"
         },
