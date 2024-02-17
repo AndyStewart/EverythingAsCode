@@ -24,8 +24,8 @@ return await Pulumi.Deployment.RunAsync(() =>
             {
                 Containers = new ContainerArgs[] {
                     new ContainerArgs {
-                        Name = "andygeoff",
-                        Image = "andy/geoff:latest",
+                        Name = "everythingascode",
+                        Image = "andystewartregistry.azurecr.io/my-app:1.0",
                     }
                 }
             }
