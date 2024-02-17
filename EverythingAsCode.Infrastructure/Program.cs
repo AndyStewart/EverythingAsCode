@@ -14,7 +14,7 @@ return await Pulumi.Deployment.RunAsync(() =>
 
     // Add a azure container app to deploy a docker container called andy/geoff:latest into the containerEnv
     var containerApp = new ContainerApp(
-        "containerApp",
+        "cap-everythingascode",
         new ContainerAppArgs
         {
             ResourceGroupName = environment.ResourceGroup.Name,
