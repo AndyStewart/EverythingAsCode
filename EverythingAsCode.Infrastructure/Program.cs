@@ -35,7 +35,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
     );
 
     var acrRole = new RoleAssignment(
-        "acrRole",
+        "ACRPullRole",
         new RoleAssignmentArgs
         {
             PrincipalId = identity.PrincipalId,
