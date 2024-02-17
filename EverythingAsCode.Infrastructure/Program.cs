@@ -40,7 +40,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
         {
             PrincipalId = identity.PrincipalId,
             RoleDefinitionId = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
-            Scope = resourceGroup.Id
+            Scope = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/resourceGroups/rg-andy-infrastructure/providers/Microsoft.ContainerRegistry/registries/andystewartregistry"
         },
         new CustomResourceOptions { Parent = containerEnv }
     );
