@@ -18,8 +18,9 @@ return await Pulumi.Deployment.RunAsync(() =>
         new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
-    var resourceGroup = ResourceGroup.Get("rg-andy-infrastructure", "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/resourceGroups/rg-andy-infrastructure");
-    var containerRegistry = Registry.Get("andystewartregistry", resourceGroup.Name);
+    var resourceGroup = ResourceGroup.Get("rg-andy-infrastructure", "rg-andy-infrastructure");
+
+    var containerRegistry = Registry.Get("andystewartregistry", resourceGroup.Id);
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
