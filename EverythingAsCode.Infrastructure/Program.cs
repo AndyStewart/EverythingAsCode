@@ -7,6 +7,7 @@ using Pulumi.AzureNative.AppPlatform;
 using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ManagedIdentity;
 using Pulumi.AzureNative.Resources;
+using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
