@@ -51,7 +51,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
                     new RegistryCredentialsArgs
                     {
                         Server = containerRegistry.LoginServer,
-                        Identity = identity.PrincipalId,
+                        Identity = identity.Id
                     }
                 }
             },
