@@ -7,6 +7,7 @@ using Pulumi.AzureNative.ContainerRegistry;
 using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ManagedIdentity;
 using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
+using Pulumi.AzureNative.Resources;
 
 return await Pulumi.Deployment.RunAsync(async () =>
 {
@@ -16,6 +17,11 @@ return await Pulumi.Deployment.RunAsync(async () =>
         "env",
         new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
+
+    var resourceGroup = await GetResourceGroup.InvokeAsync(new GetResourceGroupArgs
+    {
+        ResourceGroupName = "rg-andy-infrastructure"
+    });
 
     var containerRegistry = await GetRegistry.InvokeAsync(new GetRegistryArgs
     {
@@ -34,7 +40,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
         {
             PrincipalId = identity.PrincipalId,
             RoleDefinitionId = "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
-            Scope = containerRegistry.Id
+            Scope = resourceGroup.Id
         },
         new CustomResourceOptions { Parent = containerEnv }
     );
