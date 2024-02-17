@@ -28,7 +28,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
         RegistryName = "andystewartregistry",
         ResourceGroupName = "rg-andy-infrastructure"
     });
-
+    //
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
