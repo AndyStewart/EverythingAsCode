@@ -34,7 +34,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
         {
             PrincipalId = identity.PrincipalId,
             RoleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
-            Scope = containerRegistry.
+            Scope = containerRegistry.Id
         },
         new CustomResourceOptions { Parent = containerEnv }
     );
