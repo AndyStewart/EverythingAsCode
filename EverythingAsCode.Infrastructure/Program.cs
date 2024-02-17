@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using EverythingAsCode.Infrastructure;
+using Microsoft.Win32;
 using Pulumi;
 using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.App.Inputs;
 using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ContainerRegistry;
+using Pulumi.AzureNative.DBforPostgreSQL;
 using Pulumi.AzureNative.ManagedIdentity;
 using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
 
@@ -28,12 +30,18 @@ return await Pulumi.Deployment.RunAsync(async () =>
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
+    var definition = await GetRoleDefinition.InvokeAsync(new GetRoleDefinitionArgs
+    {
+        RoleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
+        Scope = containerRegistry.Id
+    });
+
     var acrRole = new RoleAssignment(
         "acrRole",
         new RoleAssignmentArgs
         {
             PrincipalId = identity.PrincipalId,
-            RoleDefinitionId = "/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
+            RoleDefinitionId = definition.Id,
             Scope = containerRegistry.Id
         },
         new CustomResourceOptions { Parent = containerEnv }
