@@ -6,7 +6,6 @@ using Pulumi.AzureNative.App.Inputs;
 using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ContainerRegistry;
 using Pulumi.AzureNative.ManagedIdentity;
-using ManagedServiceIdentityType = Pulumi.AzureNative.App.ManagedServiceIdentityType;
 
 return await Deployment.RunAsync(async () =>
 {
@@ -29,18 +28,7 @@ return await Deployment.RunAsync(async () =>
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
-    var acrRole = new RoleAssignment(
-        "acrRole",
-        new RoleAssignmentArgs
-        {
-            PrincipalId = identity.PrincipalId,
-            PrincipalType = "ServicePrincipal",
-            RoleDefinitionId =
-                "/subscriptions/466a09cb-2d6e-4824-9190-47a90985f8b6/providers/Microsoft.Authorization/roleDefinitions/7f951dda-4ed3-4680-a7ca-43fe172d538d",
-            Scope = containerRegistry.Id
-        },
-        new CustomResourceOptions { Parent = containerEnv }
-    );
+    var acrPull1 = new AcrPull(identity, containerRegistry);
 
     var imageName = "andystewartregistry.azurecr.io/my-app:1.0";
     var containerApp = new ContainerApp(
@@ -76,7 +64,7 @@ return await Deployment.RunAsync(async () =>
             {
                 Containers = new ContainerArgs[]
                 {
-                    new ContainerArgs { Name = "everythingascode", Image = imageName }
+                    new() { Name = "everythingascode", Image = imageName }
                 },
             },
         }
