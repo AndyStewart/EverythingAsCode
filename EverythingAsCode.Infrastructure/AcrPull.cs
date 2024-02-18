@@ -6,12 +6,12 @@ namespace EverythingAsCode.Infrastructure;
 
 internal class AcrPull
 {
-    private RoleAssignment acrRole;
+    private readonly RoleAssignment acrRole;
 
     public AcrPull(UserAssignedIdentity identity, GetRegistryResult containerEnv)
     {
         acrRole = new RoleAssignment(
-            "acrRole",
+            "AcrRoleAssignment",
             new RoleAssignmentArgs
             {
                 PrincipalId = identity.PrincipalId,
