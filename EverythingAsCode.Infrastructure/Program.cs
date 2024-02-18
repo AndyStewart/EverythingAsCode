@@ -53,7 +53,12 @@ return await Pulumi.Deployment.RunAsync(async () =>
                         Server = containerRegistry.LoginServer,
                         Identity = identity.Id
                     }
-                }
+                },
+                Ingress = new IngressArgs
+                {
+                    External = true,
+                    AllowInsecure = false
+                },
             },
             ResourceGroupName = environment.ResourceGroup.Name,
             Location = environment.ResourceGroup.Location,
@@ -70,8 +75,8 @@ return await Pulumi.Deployment.RunAsync(async () =>
                         Name = "everythingascode",
                         Image = "andystewartregistry.azurecr.io/my-app:1.0",
                     }
-                }
-            }
+                },
+            },
         }
     );
 
