@@ -58,7 +58,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
                 {
                     External = true,
                     AllowInsecure = false,
-                    TargetPort = 80
+                    TargetPort = 8080
                 },
             },
             ResourceGroupName = environment.ResourceGroup.Name,
