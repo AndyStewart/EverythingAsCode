@@ -57,7 +57,8 @@ return await Pulumi.Deployment.RunAsync(async () =>
                 Ingress = new IngressArgs
                 {
                     External = true,
-                    AllowInsecure = false
+                    AllowInsecure = false,
+                    TargetPort = 80
                 },
             },
             ResourceGroupName = environment.ResourceGroup.Name,
