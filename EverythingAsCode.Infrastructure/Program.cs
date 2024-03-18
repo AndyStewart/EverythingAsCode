@@ -3,8 +3,8 @@ using EverythingAsCode.Infrastructure;
 using Pulumi;
 using Pulumi.AzureNative.App;
 using Pulumi.AzureNative.App.Inputs;
-using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.ContainerRegistry;
+using Pulumi.AzureNative.EventGrid;
 using Pulumi.AzureNative.ManagedIdentity;
 
 return await Deployment.RunAsync(async () =>
@@ -14,7 +14,6 @@ return await Deployment.RunAsync(async () =>
         "env",
         new ManagedEnvironmentArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
-
     var containerRegistry = await GetRegistry.InvokeAsync(
         new GetRegistryArgs
         {
@@ -23,14 +22,20 @@ return await Deployment.RunAsync(async () =>
         }
     );
 
+    var imageName = "andystewartregistry.azurecr.io/my-app:1.0";
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
     );
 
-    var acrPull1 = new AcrPull(identity, containerRegistry);
+    var topic = new Topic("topic", new TopicArgs()
+    {
+        ResourceGroupName = environment.ResourceGroup.Name,
+        Location = environment.ResourceGroup.Location,
+        TopicName = "mytopic",
+    });
 
-    var imageName = "andystewartregistry.azurecr.io/my-app:1.0";
+    var acrPull = new AcrPull(identity, containerRegistry);
     var containerApp = new ContainerApp(
         "cap-everythingascode",
         new ContainerAppArgs
