@@ -35,17 +35,13 @@ return await Deployment.RunAsync(async () =>
         TopicName = "everythingascodetopic",
     });
 
-    ListTopicSharedAccessKeysResult a = null;
-    environment.ResourceGroup.Name.Apply(r =>
-        topic.Name.Apply(async q =>
+    var keys = environment.ResourceGroup.Name.Apply(r =>
+        topic.Name.Apply(async q => await ListTopicSharedAccessKeys.InvokeAsync(new ListTopicSharedAccessKeysArgs()
         {
-            a = await ListTopicSharedAccessKeys.InvokeAsync(new ListTopicSharedAccessKeysArgs()
-            {
-                ResourceGroupName = r,
-                TopicName = q
-            });
-        }));
-
+            ResourceGroupName = r,
+            TopicName = q
+        })));
+    
     var acrPull = new AcrPull(identity, containerRegistry);
     var containerApp = new ContainerApp(
         "cap-everythingascode",
@@ -87,7 +83,7 @@ return await Deployment.RunAsync(async () =>
                             new EnvironmentVarArgs
                             {
                                 Name = "EVENTGRID_TOPIC_KEY",
-                                Value = a.Key1
+                                Value = keys.Apply(q => q.Key1)!
                             }
                         ]
                     }
