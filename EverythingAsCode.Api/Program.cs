@@ -1,9 +1,20 @@
+using Azure;
+using Azure.Messaging.EventGrid;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var configuration = new ConfigurationBuilder()
+    .AddInMemoryCollection(new Dictionary<string, string?>()
+    {
+        ["SomeKey"] = "SomeValue"
+    })
+    .AddEnvironmentVariables()
+    .Build();
 
 var app = builder.Build();
 
@@ -36,6 +47,14 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapPost("/publish", async () =>
+{
+    var client = new EventGridPublisherClient(
+        new Uri("https://everythingascodetopic.westeurope-1.eventgrid.azure.net/api/events"),
+        new AzureKeyCredential(configuration["EVENTGRID_TOPIC_KEY"]));
+    var eventGridEvent = new EventGridEvent("ThingHappened", "Thing", "ThingData", new { A = 1});
+    await client.SendEventAsync(eventGridEvent);
+});
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
