@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingAsCode.Api", "Eve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingAsCode.Infrastructure", "EverythingAsCode.Infrastructure\EverythingAsCode.Infrastructure.csproj", "{6FE711D2-E1E8-4A62-8986-F82E1FE65B34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverythingAsCode.Api.Tests", "EverythingAsCode.Api.Tests\EverythingAsCode.Api.Tests.csproj", "{34460275-0271-449E-88DA-5C9C8586A9AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6FE711D2-E1E8-4A62-8986-F82E1FE65B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FE711D2-E1E8-4A62-8986-F82E1FE65B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FE711D2-E1E8-4A62-8986-F82E1FE65B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34460275-0271-449E-88DA-5C9C8586A9AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34460275-0271-449E-88DA-5C9C8586A9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34460275-0271-449E-88DA-5C9C8586A9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34460275-0271-449E-88DA-5C9C8586A9AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
