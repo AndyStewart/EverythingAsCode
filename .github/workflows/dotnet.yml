@@ -43,5 +43,5 @@ jobs:
         pulumi login azblob://pulumi
         pulumi stack select dev
         pulumi preview
-        pulumi update --yes
+        pulumi update --yes -c DOCKER_IMAGE_VERSION=1.${{ github.run_number }}
       working-directory: ./EverythingAsCode.Infrastructure/

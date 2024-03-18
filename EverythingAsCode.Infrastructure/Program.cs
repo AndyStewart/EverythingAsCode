@@ -22,7 +22,9 @@ return await Deployment.RunAsync(async () =>
         }
     );
 
-    var imageName = "andystewartregistry.azurecr.io/my-app:1.0";
+    var config = new Pulumi.Config();
+    var versionNumber = config.Get("DOCKER_IMAGE_VERSION") ?? "latest";
+    var imageName = $"andystewartregistry.azurecr.io/my-app:{versionNumber}";
     var identity = new UserAssignedIdentity(
         "identity",
         new UserAssignedIdentityArgs { ResourceGroupName = environment.ResourceGroup.Name }
@@ -78,7 +80,8 @@ return await Deployment.RunAsync(async () =>
                 {
                     new()
                     {
-                        Name = "everythingascode", Image = imageName,
+                        Name = "everythingascode", 
+                        Image = imageName,
                         Env = [
                             new EnvironmentVarArgs
                             {
