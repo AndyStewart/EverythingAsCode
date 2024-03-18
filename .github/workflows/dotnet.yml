@@ -23,7 +23,7 @@ jobs:
       with:
         context: ./EverythingAsCode.Api/.
         push: true
-        tags: andystewartregistry.azurecr.io/my-app:1.0
+        tags: andystewartregistry.azurecr.io/my-app:1.${{ github.run_number }}
   deploy:
     runs-on: ubuntu-latest
     needs: build
