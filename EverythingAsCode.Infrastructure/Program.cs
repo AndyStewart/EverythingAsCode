@@ -32,7 +32,7 @@ return await Deployment.RunAsync(async () =>
     {
         ResourceGroupName = environment.ResourceGroup.Name,
         Location = environment.ResourceGroup.Location,
-        TopicName = "mytopic",
+        TopicName = "everythingascodetopic",
     });
 
     var acrPull = new AcrPull(identity, containerRegistry);
